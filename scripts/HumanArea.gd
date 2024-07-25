@@ -1,4 +1,8 @@
 extends Area2D
+signal hit
+
+var HP = 100
+var MP = 100
 
 @onready var _animation_player = $HumanAnimationPlayer
 @onready var ray = $HumanRayCast
@@ -28,3 +32,25 @@ func move(dir):
 	ray.force_raycast_update()
 	if !ray.is_colliding():
 		position += inputs[dir] * tile_size
+
+func _on_body_entered(body):
+	hide()
+	hit.emit()
+	$HumanCollision.set_deferred("disabled", true)
+
+func start(pos):
+	position = pos
+	show()
+	$HumanCollision.disabled = false
+
+
+func _on_hit():
+	MP -= 10
+
+
+func _on_goblin_sight_area_entered(area):
+	print("I see you")
+
+
+func _on_goblin_sight_area_exited(area):
+	print("I lost you")

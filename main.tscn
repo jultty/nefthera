@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://w1vqgd17vwnq"]
+[gd_scene load_steps=19 format=3 uid="uid://w1vqgd17vwnq"]
 
 [ext_resource type="Texture2D" uid="uid://bnlm7m88td65b" path="res://assets/GrassNDirt.png" id="1_8bb4a"]
 [ext_resource type="Texture2D" uid="uid://xpt425uxcwff" path="res://assets/spr_goblin_idle.png" id="2_ugrff"]
 [ext_resource type="Script" path="res://scripts/HumanArea.gd" id="4_aejx6"]
+[ext_resource type="Script" path="res://scripts/GoblinArea.gd" id="4_f138i"]
 [ext_resource type="Texture2D" uid="uid://dc155rw1erdwc" path="res://assets/spr_player_front_idle.png" id="5_2vvkq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mgr48"]
@@ -139,7 +140,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hy3lv"]
-size = Vector2(16, 16)
+size = Vector2(232.009, 0)
 
 [sub_resource type="Animation" id="Animation_27vbq"]
 length = 0.001
@@ -179,6 +180,9 @@ _data = {
 "goblin-idle": SubResource("Animation_i6gnu")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_57j4f"]
+radius = 296.061
+
 [node name="2D Root" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -196,19 +200,22 @@ format = 2
 layer_0/tile_data = PackedInt32Array(1572894, 262144, 2, 786445, 196608, 0, 786452, 262144, 2, 786450, 262144, 2, 851985, 262144, 2, 851987, 262144, 2, 917524, 262144, 2, 917522, 262144, 2, 983057, 262144, 2, 983059, 262144, 2, 983061, 262144, 2, 851989, 262144, 2, 917526, 262144, 2, 851991, 262144, 2, 983063, 262144, 2, 917528, 262144, 2, 851993, 262144, 2, 983065, 262144, 2, 1048600, 262144, 2, 1048598, 262144, 2, 1048596, 262144, 2, 1048594, 262144, 2, 1114129, 262144, 2, 1114131, 262144, 2, 1114133, 262144, 2, 1114135, 262144, 2, 1114137, 262144, 2, 851977, 196608, 1)
 
 [node name="HumanArea" type="Area2D" parent="."]
-position = Vector2(56, 88)
+position = Vector2(82, 80)
 script = ExtResource("4_aejx6")
 
 [node name="HumanSprite" type="Sprite2D" parent="HumanArea"]
 position = Vector2(0, -8)
 texture = ExtResource("5_2vvkq")
 hframes = 12
+metadata/_edit_lock_ = true
 
 [node name="HumanCollision" type="CollisionShape2D" parent="HumanArea"]
 shape = SubResource("RectangleShape2D_pgflw")
+metadata/_edit_lock_ = true
 
 [node name="HumanRayCast" type="RayCast2D" parent="HumanArea"]
 target_position = Vector2(0, 16)
+metadata/_edit_lock_ = true
 
 [node name="HumanAnimationPlayer" type="AnimationPlayer" parent="HumanArea"]
 libraries = {
@@ -216,23 +223,43 @@ libraries = {
 }
 
 [node name="GoblinArea" type="Area2D" parent="."]
-position = Vector2(62.9961, 160.01)
+position = Vector2(936, 446)
+script = ExtResource("4_f138i")
 
 [node name="GoblinSprite" type="Sprite2D" parent="GoblinArea"]
-position = Vector2(9.00394, -24.01)
+position = Vector2(3.8147e-06, 0)
 texture = ExtResource("2_ugrff")
 hframes = 9
+metadata/_edit_lock_ = true
 
 [node name="GoblinCollision" type="CollisionShape2D" parent="GoblinArea"]
-position = Vector2(9.00394, -24.01)
+light_mask = 0
+position = Vector2(116.004, 0)
 shape = SubResource("RectangleShape2D_hy3lv")
+metadata/_edit_lock_ = true
 
 [node name="GoblinRayCast" type="RayCast2D" parent="GoblinArea"]
 modulate = Color(1, 0, 1, 1)
-position = Vector2(9.00394, -24.01)
+position = Vector2(3.8147e-06, 0)
 target_position = Vector2(0, 16)
+metadata/_edit_lock_ = true
 
 [node name="GoblinAnimationPlayer" type="AnimationPlayer" parent="GoblinArea"]
 libraries = {
 "": SubResource("AnimationLibrary_e28t6")
 }
+
+[node name="GoblinSight" type="Area2D" parent="GoblinArea"]
+
+[node name="GoblingSightCollisionShape" type="CollisionShape2D" parent="GoblinArea/GoblinSight"]
+shape = SubResource("CircleShape2D_57j4f")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="body_entered" from="HumanArea" to="HumanArea" method="_on_body_entered"]
+[connection signal="hit" from="HumanArea" to="HumanArea" method="_on_hit"]
+[connection signal="area_entered" from="GoblinArea/GoblinSight" to="HumanArea" method="_on_goblin_sight_area_entered"]
+[connection signal="area_exited" from="GoblinArea/GoblinSight" to="HumanArea" method="_on_goblin_sight_area_exited"]
+[connection signal="timeout" from="Timer" to="GoblinArea" method="_on_timer_timeout"]
