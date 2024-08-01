@@ -3,7 +3,7 @@ extends Control
 var option_button
 
 func _ready():
-	option_button = $MarginContainer/VBoxContainer/Resolution
+	option_button = $Resolution
 	
 	option_button.add_item("1920 x 1080")
 	option_button.add_item("1600 x 900")

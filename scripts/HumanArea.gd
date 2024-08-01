@@ -1,14 +1,11 @@
 extends Area2D
-signal hit
 
 var HP = 100
 var MP = 100
 
 @onready var _animation_player = $HumanAnimationPlayer
 @onready var ray = $HumanRayCast
-
-func _process(_delta):
-	_animation_player.play("human-idle")
+@onready var speed = 0.15
 
 var tile_size=16
 var inputs = {
@@ -18,39 +15,29 @@ var inputs = {
 	"ui_down": Vector2.DOWN,
 }
 
-func _ready():
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
-	
-func _unhandled_input(event):
+func _process(_delta):
 	for dir in inputs.keys():
-		if event.is_action_pressed(dir):
+		if Input.is_action_pressed(dir):
 			move(dir)
+	if HP < 1:
+		get_tree().change_scene_to_file("res://game_over.tscn")
 
 func move(dir):
 	ray.target_position = inputs[dir] * tile_size
 	ray.force_raycast_update()
 	if !ray.is_colliding():
-		position += inputs[dir] * tile_size
+		position += inputs[dir] * tile_size * speed
 
-func _on_body_entered(body):
-	hide()
-	hit.emit()
-	$HumanCollision.set_deferred("disabled", true)
+func _ready():
+	position = position.snapped(Vector2.ONE * tile_size)
+	position += Vector2.ONE * tile_size/2
+	_animation_player.play("human-idle")
 
 func start(pos):
 	position = pos
 	show()
 	$HumanCollision.disabled = false
 
-
-func _on_hit():
-	MP -= 10
-
-
-func _on_goblin_sight_area_entered(area):
-	print("I see you")
-
-
-func _on_goblin_sight_area_exited(area):
-	print("I lost you")
+func _on_goblin_area_area_entered(area):
+	HP -= 10
+	print("Human HP: ", HP , " (hit by ", area.name, ")")
