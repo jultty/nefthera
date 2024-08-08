@@ -38,6 +38,7 @@ func start(pos):
 	show()
 	$HumanCollision.disabled = false
 
-func _on_goblin_area_area_entered(area):
-	HP -= 10
-	print("Human HP: ", HP , " (hit by ", area.name, ")")
+func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	if area != self:
+		HP -= 10
+		print("Human HP: ", HP , " (hit by ", area.name, ")")

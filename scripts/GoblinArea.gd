@@ -62,21 +62,21 @@ func _on_goblin_sight_area_exited(area):
 	target = null
 
 func move_to(x, y):
-	print("[goblin.move_to] Moving to: x", x, " y", y, " from x", self.position.x, " y", self.position.y)
+	#print("[goblin.move_to] Moving to: x", x, " y", y, " from x", self.position.x, " y", self.position.y)
 	var x_difference = x - self.position.x
 	var y_difference = y - self.position.y
-	print("[goblin.move_to] Difference: x", x_difference, " y", y_difference)
+	#print("[goblin.move_to] Difference: x", x_difference, " y", y_difference)
 	
 	if abs(x_difference) > chase_speed:
-		print("[goblin.move_to] Target x over speed limit") 
+		#print("[goblin.move_to] Target x over speed limit") 
 		if x_difference < 0:
-			print("[goblin.move_to] Long x distance is negative, subtracting speed") 
+			#print("[goblin.move_to] Long x distance is negative, subtracting speed") 
 			self.position.x -= chase_speed
 		else:
-			print("[goblin.move_to] Long x distance is positive, adding speed") 
+			#print("[goblin.move_to] Long x distance is positive, adding speed") 
 			self.position.x += chase_speed
 	else:
-		print("[goblin.move_to] Target x under speed limit, adding difference") 
+		#print("[goblin.move_to] Target x under speed limit, adding difference") 
 		self.position.x += x_difference
 
 	if abs(y_difference) > chase_speed:
