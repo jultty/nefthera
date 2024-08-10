@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://blc73m0iarrew"]
+
+[ext_resource type="Script" path="res://scripts/GoblinArea.gd" id="1_grq22"]
+[ext_resource type="Texture2D" uid="uid://xpt425uxcwff" path="res://assets/spr_goblin_idle.png" id="2_v2mj3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldlnl"]
+size = Vector2(232.009, 0)
+
+[sub_resource type="Animation" id="Animation_27vbq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoblinSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i6gnu"]
+resource_name = "goblin-idle"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoblinSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e28t6"]
+_data = {
+"RESET": SubResource("Animation_27vbq"),
+"goblin-idle": SubResource("Animation_i6gnu")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ykb73"]
+radius = 296.061
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GoblinArea" type="Area2D" parent="."]
+position = Vector2(936, 446)
+script = ExtResource("1_grq22")
+
+[node name="GoblinSprite" type="Sprite2D" parent="GoblinArea"]
+position = Vector2(3.8147e-06, 0)
+texture = ExtResource("2_v2mj3")
+hframes = 9
+metadata/_edit_lock_ = true
+
+[node name="GoblinCollision" type="CollisionShape2D" parent="GoblinArea"]
+light_mask = 0
+position = Vector2(116.004, 0)
+shape = SubResource("RectangleShape2D_ldlnl")
+metadata/_edit_lock_ = true
+
+[node name="GoblinRayCast" type="RayCast2D" parent="GoblinArea"]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(3.8147e-06, 0)
+target_position = Vector2(0, 16)
+metadata/_edit_lock_ = true
+
+[node name="GoblinAnimationPlayer" type="AnimationPlayer" parent="GoblinArea"]
+libraries = {
+"": SubResource("AnimationLibrary_e28t6")
+}
+
+[node name="GoblinSight" type="Area2D" parent="GoblinArea"]
+visible = false
+
+[node name="GoblingSightCollisionShape" type="CollisionShape2D" parent="GoblinArea/GoblinSight"]
+position = Vector2(-40, 2)
+shape = SubResource("CircleShape2D_ykb73")
+
+[connection signal="area_entered" from="GoblinArea/GoblinSight" to="GoblinArea" method="_on_goblin_sight_area_entered"]
+[connection signal="area_exited" from="GoblinArea/GoblinSight" to="GoblinArea" method="_on_goblin_sight_area_exited"]

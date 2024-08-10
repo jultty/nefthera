@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcwtnq6jrpgfr"]
+[gd_scene load_steps=3 format=3 uid="uid://bjqtyk33qcy12"]
 
-[ext_resource type="Script" path="res://game_over.gd" id="1_s1lgj"]
+[ext_resource type="Script" path="res://game_over.gd" id="1_n3f82"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_trkrv"]
+[sub_resource type="LabelSettings" id="LabelSettings_m6swr"]
 font_size = 60
 
 [node name="GameOver" type="Control"]
@@ -12,17 +12,16 @@ offset_left = 648.0
 offset_top = 240.0
 offset_right = 648.0
 offset_bottom = 240.0
-script = ExtResource("1_s1lgj")
+script = ExtResource("1_n3f82")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_left = -104.0
+offset_left = -204.0
 offset_top = -240.0
-offset_right = 88.0
+offset_right = 71.0
 offset_bottom = 400.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -39,15 +38,19 @@ text = "Main menu"
 
 [node name="GameOverLabel" type="Label" parent="."]
 layout_mode = 2
-offset_left = -176.0
-offset_top = -64.0
-offset_right = 167.0
-offset_bottom = 19.0
-text = "Game Over"
-label_settings = SubResource("LabelSettings_trkrv")
+offset_left = -647.0
+offset_top = -157.0
+offset_right = 510.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN!
+CONGRATULATIONS"
+label_settings = SubResource("LabelSettings_m6swr")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+visible_characters_behavior = 1
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

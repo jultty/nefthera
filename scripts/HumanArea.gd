@@ -39,6 +39,11 @@ func start(pos):
 	$HumanCollision.disabled = false
 
 func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	if area != self:
+	if area.name == "GoblinArea":
 		HP -= 10
 		print("Human HP: ", HP , " (hit by ", area.name, ")")
+
+
+func _on_goal_area_entered(area):
+	if area == self:
+		get_tree().change_scene_to_file("res://game_win.tscn")

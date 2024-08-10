@@ -1,11 +1,7 @@
 extends Area2D
 
-# randi() % n selects a random integer between 0 and n-1.
-
 @onready var _animation_player = $GoblinAnimationPlayer
 @onready var target = null
-
-#func _process(_delta):
 
 var tile_size=16
 var direction = position.angle()
@@ -53,13 +49,14 @@ func _on_timer_timeout():
 		chase(target)
 
 func _on_goblin_sight_area_entered(area):
-	print("[goblin] Seeing: ", area.name)
-	if area != self:
+	if area.name == "HumanArea":
+		print("[goblin] Seeing: ", area.name)
 		target = area
 
 func _on_goblin_sight_area_exited(area):
-	print("[goblin] Lost: ", area.name)
-	target = null
+	if area.name == "HumanArea":
+		print("[goblin] Lost: ", area.name)
+		target = null
 
 func move_to(x, y):
 	#print("[goblin.move_to] Moving to: x", x, " y", y, " from x", self.position.x, " y", self.position.y)
