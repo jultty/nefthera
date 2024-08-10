@@ -29,16 +29,14 @@ func check_movement_range(pos):
 func move_if_not_colliding(new_position):
 	ray.target_position = new_position
 	ray.force_raycast_update()
-	#if !ray.is_colliding():
-	position = new_position
+	if !ray.is_colliding():
+		position = new_position
 
 func move(dir):
 	var signs = [ -1, 1 ]
 	var direction_sign = signs[randi() % signs.size()]
 	direction = randf_range(-PI / 4, PI / 4) * direction_sign
 	var new_position = position + velocity.rotated(dir) * direction_sign * tile_size	
-	ray.target_position = new_position
-	ray.force_raycast_update()
 	if check_movement_range(new_position):
 		move_if_not_colliding(new_position)
 	else:
@@ -66,7 +64,6 @@ func _on_goblin_sight_area_exited(area):
 		target = null
 
 func move_to(x, y):
-	var target_position = self.global_position
 	print("[goblin.move_to] Moving to: x", x, " y", y, " from x", self.global_position.x, " y", self.global_position.y)
 	var x_difference = self.global_position.x - x
 	var y_difference = self.global_position.y - y
@@ -77,25 +74,17 @@ func move_to(x, y):
 		if x_difference > 0:
 			print("[goblin.move_to] Long x distance is negative, subtracting speed") 
 			self.global_position.x -= chase_speed
-			#target_position.x = self.global_position.x - chase_speed
 		else:
 			print("[goblin.move_to] Long x distance is positive, adding speed") 
 			self.global_position.x += chase_speed
-			#target_position.x = self.global_position.x + chase_speed
 	else:
 		print("[goblin.move_to] Target x under speed limit, adding difference") 
 		self.global_position.x += x_difference
-		#target_position.x = self.global_position.x + x_difference
 
 	if abs(y_difference) > chase_speed:
 		if y_difference > 0:
 			self.global_position.y -= chase_speed
-			#target_position.y = self.global_position.y - chase_speed
 		else:
 			self.global_position.y += chase_speed
-			#target_position.y = self.global_position.y + chase_speed
 	else:
 		self.global_position.y += y_difference
-		#target_position.y = self.global_position.y + y_difference
-
-	#move_if_not_colliding(target_position)

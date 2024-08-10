@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://xpt425uxcwff" path="res://assets/spr_goblin_idle.png" id="2_v2mj3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldlnl"]
-size = Vector2(232.009, 0)
+size = Vector2(13.5002, 12.5)
 
 [sub_resource type="Animation" id="Animation_27vbq"]
 length = 0.001
@@ -50,7 +50,7 @@ radius = 296.061
 [node name="Node2D" type="Node2D"]
 
 [node name="GoblinArea" type="Area2D" parent="."]
-position = Vector2(936, 446)
+position = Vector2(561, 317)
 script = ExtResource("1_grq22")
 
 [node name="GoblinSprite" type="Sprite2D" parent="GoblinArea"]
@@ -61,14 +61,16 @@ metadata/_edit_lock_ = true
 
 [node name="GoblinCollision" type="CollisionShape2D" parent="GoblinArea"]
 light_mask = 0
-position = Vector2(116.004, 0)
+position = Vector2(-1.24988, 1.25)
 shape = SubResource("RectangleShape2D_ldlnl")
 metadata/_edit_lock_ = true
 
 [node name="GoblinRayCast" type="RayCast2D" parent="GoblinArea"]
 modulate = Color(1, 0, 1, 1)
 position = Vector2(3.8147e-06, 0)
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 19)
+collision_mask = 9
+collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="GoblinAnimationPlayer" type="AnimationPlayer" parent="GoblinArea"]
@@ -77,11 +79,12 @@ libraries = {
 }
 
 [node name="GoblinSight" type="Area2D" parent="GoblinArea"]
-visible = false
 
 [node name="GoblingSightCollisionShape" type="CollisionShape2D" parent="GoblinArea/GoblinSight"]
-position = Vector2(-40, 2)
+modulate = Color(0.150848, 0.498204, 0.358326, 1)
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_ykb73")
+metadata/_edit_lock_ = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25

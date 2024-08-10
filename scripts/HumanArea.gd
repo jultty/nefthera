@@ -27,6 +27,8 @@ func move(dir):
 	ray.force_raycast_update()
 	if !ray.is_colliding():
 		position += inputs[dir] * tile_size * speed
+	else:
+		print(ray.get_collider())
 
 func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
