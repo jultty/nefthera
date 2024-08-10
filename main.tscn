@@ -5076,6 +5076,7 @@ position = Vector2(82, 80)
 script = ExtResource("4_aejx6")
 
 [node name="Camera2D" type="Camera2D" parent="HumanArea"]
+zoom = Vector2(2.5, 2.5)
 limit_left = 0
 limit_top = 0
 limit_right = 1168
