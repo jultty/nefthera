@@ -1,15 +1,13 @@
-[gd_scene load_steps=39 format=3 uid="uid://w1vqgd17vwnq"]
+[gd_scene load_steps=32 format=3 uid="uid://w1vqgd17vwnq"]
 
 [ext_resource type="Texture2D" uid="uid://bnlm7m88td65b" path="res://assets/GrassNDirt.png" id="1_8bb4a"]
 [ext_resource type="Script" path="res://main.gd" id="1_h0slw"]
 [ext_resource type="Texture2D" uid="uid://c7f45534856fx" path="res://assets/Cliff.png" id="2_201h6"]
 [ext_resource type="Texture2D" uid="uid://cwp0bk6qskvc6" path="res://assets/Forest Props.png" id="2_ayqsn"]
 [ext_resource type="PackedScene" uid="uid://blc73m0iarrew" path="res://goblin.tscn" id="2_cmrlu"]
-[ext_resource type="Texture2D" uid="uid://xpt425uxcwff" path="res://assets/spr_goblin_idle.png" id="2_ugrff"]
 [ext_resource type="Texture2D" uid="uid://cntdeik4olnmu" path="res://assets/Forest Cliff.png" id="3_tx0ui"]
 [ext_resource type="Texture2D" uid="uid://bm2gjwmeydk06" path="res://assets/RocksnStumps.png" id="4_1pqim"]
 [ext_resource type="Script" path="res://scripts/HumanArea.gd" id="4_aejx6"]
-[ext_resource type="Script" path="res://scripts/GoblinArea.gd" id="4_f138i"]
 [ext_resource type="Texture2D" uid="uid://dc155rw1erdwc" path="res://assets/spr_player_front_idle.png" id="5_2vvkq"]
 [ext_resource type="Texture2D" uid="uid://bkqwm8b01nsp6" path="res://assets/Settlement.png" id="5_8aq1m"]
 [ext_resource type="Texture2D" uid="uid://c7ivi4u32gh1t" path="res://assets/Trees.png" id="7_iaqgh"]
@@ -5016,59 +5014,15 @@ _data = {
 "human-idle": SubResource("Animation_crgyp")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hy3lv"]
-size = Vector2(232.009, 0)
-
-[sub_resource type="Animation" id="Animation_27vbq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GoblinSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_i6gnu"]
-resource_name = "goblin-idle"
-length = 0.9
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GoblinSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 0, 1, 2, 3, 4, 5, 6, 7, 8]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_e28t6"]
-_data = {
-"RESET": SubResource("Animation_27vbq"),
-"goblin-idle": SubResource("Animation_i6gnu")
-}
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_57j4f"]
-radius = 296.061
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_68yql"]
 
-[sub_resource type="Curve2D" id="Curve2D_dantt"]
+[sub_resource type="Curve2D" id="Curve2D_eucxx"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 50, 249, 0, 0, 0, 0, 628, 250, 0, 0, 0, 0, 620, 807, 0, 0, 0, 0, 49, 807, 0, 0, 0, 0, 50, 249)
+"points": PackedVector2Array(0, 0, 0, 0, 63, 287, 0, 0, 0, 0, 639, 277, 0, 0, 0, 0, 669, 767, 0, 0, 0, 0, 69, 777, 0, 0, 0, 0, 63, 287, 0, 0, 0, 0, 1101, 279)
 }
-point_count = 5
+point_count = 6
 
-[node name="2D Root" type="Node2D"]
+[node name="main" type="Node2D"]
 script = ExtResource("1_h0slw")
 mob_scene = ExtResource("2_cmrlu")
 
@@ -5145,40 +5099,6 @@ libraries = {
 "": SubResource("AnimationLibrary_svau8")
 }
 
-[node name="GoblinArea" type="Area2D" parent="."]
-position = Vector2(936, 446)
-script = ExtResource("4_f138i")
-
-[node name="GoblinSprite" type="Sprite2D" parent="GoblinArea"]
-position = Vector2(3.8147e-06, 0)
-texture = ExtResource("2_ugrff")
-hframes = 9
-metadata/_edit_lock_ = true
-
-[node name="GoblinCollision" type="CollisionShape2D" parent="GoblinArea"]
-light_mask = 0
-position = Vector2(116.004, 0)
-shape = SubResource("RectangleShape2D_hy3lv")
-metadata/_edit_lock_ = true
-
-[node name="GoblinRayCast" type="RayCast2D" parent="GoblinArea"]
-modulate = Color(1, 0, 1, 1)
-position = Vector2(3.8147e-06, 0)
-target_position = Vector2(0, 16)
-metadata/_edit_lock_ = true
-
-[node name="GoblinAnimationPlayer" type="AnimationPlayer" parent="GoblinArea"]
-libraries = {
-"": SubResource("AnimationLibrary_e28t6")
-}
-
-[node name="GoblinSight" type="Area2D" parent="GoblinArea"]
-visible = false
-
-[node name="GoblingSightCollisionShape" type="CollisionShape2D" parent="GoblinArea/GoblinSight"]
-position = Vector2(-40, 2)
-shape = SubResource("CircleShape2D_57j4f")
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
@@ -5189,24 +5109,26 @@ position = Vector2(886, 6303)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
 shape = SubResource("CircleShape2D_68yql")
 
-[node name="EasyMobTimer" type="Timer" parent="."]
+[node name="MobTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 
-[node name="FirstMobSpawn" type="Path2D" parent="."]
-curve = SubResource("Curve2D_dantt")
+[node name="SpawnMarkers" type="Marker2D" parent="."]
 
-[node name="FirstMobSpawnLoc" type="PathFollow2D" parent="FirstMobSpawn"]
-position = Vector2(50, 249)
-rotation = 0.0017301
+[node name="FirstSpawn" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(564, 312)
+
+[node name="SecondSpawn" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(564, 603)
+
+[node name="MobSpawnPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_eucxx")
+
+[node name="MonSpawnPathFollower" type="PathFollow2D" parent="MobSpawnPath"]
+position = Vector2(63, 287)
+rotation = -0.0173594
 
 [connection signal="area_entered" from="HumanArea" to="HumanArea" method="_on_area_entered"]
 [connection signal="area_shape_entered" from="HumanArea" to="HumanArea" method="_on_area_shape_entered"]
-[connection signal="area_entered" from="GoblinArea" to="HumanArea" method="_on_goblin_area_area_entered"]
-[connection signal="area_entered" from="GoblinArea/GoblinSight" to="HumanArea" method="_on_goblin_sight_area_entered"]
-[connection signal="area_entered" from="GoblinArea/GoblinSight" to="GoblinArea" method="_on_goblin_sight_area_entered"]
-[connection signal="area_exited" from="GoblinArea/GoblinSight" to="HumanArea" method="_on_goblin_sight_area_exited"]
-[connection signal="area_exited" from="GoblinArea/GoblinSight" to="GoblinArea" method="_on_goblin_sight_area_exited"]
-[connection signal="timeout" from="Timer" to="GoblinArea" method="_on_timer_timeout"]
 [connection signal="area_entered" from="Goal" to="HumanArea" method="_on_goal_area_entered"]
-[connection signal="timeout" from="EasyMobTimer" to="." method="_on_easy_mob_timer_timeout"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_easy_mob_timer_timeout"]

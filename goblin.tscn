@@ -83,5 +83,10 @@ visible = false
 position = Vector2(-40, 2)
 shape = SubResource("CircleShape2D_ykb73")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
 [connection signal="area_entered" from="GoblinArea/GoblinSight" to="GoblinArea" method="_on_goblin_sight_area_entered"]
 [connection signal="area_exited" from="GoblinArea/GoblinSight" to="GoblinArea" method="_on_goblin_sight_area_exited"]
+[connection signal="timeout" from="Timer" to="GoblinArea" method="_on_timer_timeout"]
