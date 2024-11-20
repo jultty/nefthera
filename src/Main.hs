@@ -7,4 +7,4 @@ flow u = u
 
 main :: IO ()
 main = do
-  Status.Schema.print
+  Status.Schema.write
