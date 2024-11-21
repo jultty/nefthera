@@ -149,6 +149,6 @@ seed = Universe {
 encodeUniverse :: Universe -> Encoding
 encodeUniverse = genericToEncoding defaultOptions
 
-write :: IO ()
-write = do
-  print (encodeUniverse seed)
+write :: Universe -> IO ()
+write universe = do
+  print (encodeUniverse universe)
