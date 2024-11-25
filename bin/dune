@@ -2,5 +2,6 @@
  (public_name nefthera)
  (name main)
  (libraries nefthera)
- (flags (:standard -w +A-23))
 )
+
+(env (dev (flags (:standard -w +A-70 -warn-error -23))))

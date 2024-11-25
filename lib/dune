@@ -1,4 +1,5 @@
 (library
  (name nefthera)
- (flags (:standard -w +A-23-70))
 )
+
+(env (dev (flags (:standard -w +A-70 -warn-error -23))))
