@@ -1,0 +1,6 @@
+(executable
+ (public_name nefthera)
+ (name main)
+ (libraries nefthera)
+ (flags (:standard -w +A-23))
+)

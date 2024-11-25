@@ -1,0 +1,4 @@
+(library
+ (name nefthera)
+ (flags (:standard -w +A-23-70))
+)
