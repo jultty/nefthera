@@ -4,4 +4,6 @@
  (libraries nefthera)
 )
 
+(include_subdirs qualified)
+
 (env (dev (flags (:standard -w +A-70 -warn-error -23))))

@@ -1,13 +1,15 @@
-open Nefthera.Schema
+open Nefthera
+open Transform
+open Schema
 
 let rec flow (old_universe: universe): unit =
 
-  print_endline (Nefthera.Interpreter.make_prompt old_universe) ;
+  print_endline (Transform.Interpreter.make_prompt old_universe) ;
 
   print_string " > " ;
   let words = read_line () in
   let acted_universe: universe =
-    Nefthera.Interpreter.interpret old_universe words in
+    Transform.Interpreter.interpret old_universe words in
 
   let next_time = acted_universe.time.grain + 1 in
   let next_universe = {
