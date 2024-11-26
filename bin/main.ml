@@ -2,10 +2,13 @@ open Nefthera
 open Parse
 open Schema
 
+let put = print_string
+let putl = print_endline
+
 let rec flow (past: universe): unit =
 
-  print_endline (Interpreter.make_prompt past) ;
-  print_string " > " ;
+  putl (Interpreter.make_prompt past) ;
+  put " > " ;
 
   let words = read_line () in
   let present: universe =
@@ -18,7 +21,8 @@ let rec flow (past: universe): unit =
   } in
 
   if future.time.halt then
-    print_endline "Time has come to an end."
+    putl @@ future.player.name ^ ", " ^ future.player.title
+      ^ ", your time has come to a halt."
   else
     flow future
 
