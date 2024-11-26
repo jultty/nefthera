@@ -1,26 +1,25 @@
 open Nefthera
-open Transform
+open Parse
 open Schema
 
-let rec flow (old_universe: universe): unit =
+let rec flow (past: universe): unit =
 
-  print_endline (Transform.Interpreter.make_prompt old_universe) ;
-
+  print_endline (Interpreter.make_prompt past) ;
   print_string " > " ;
-  let words = read_line () in
-  let acted_universe: universe =
-    Transform.Interpreter.interpret old_universe words in
 
-  let next_time = acted_universe.time.grain + 1 in
-  let next_universe = {
-    acted_universe with time = {
-      acted_universe.time with grain = next_time
+  let words = read_line () in
+  let present: universe =
+    Interpreter.interpret past words in
+
+  let future = {
+    present with time = {
+      present.time with grain = present.time.grain + 1
     }
   } in
 
-  if next_universe.time.halt then
+  if future.time.halt then
     print_endline "Time has come to an end."
   else
-    flow next_universe
+    flow future
 
 let () = flow Nefthera.Schema.seed
