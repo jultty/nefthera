@@ -3,7 +3,9 @@ open Schema
 let make_prompt (u: universe): string =
   "Grain: " ^ string_of_int u.time.grain
 
-let interpret (old: universe) (input: string): universe =
-  match input with
-  | "halt" | "exit" | "quit" -> { old with time = { old.time with halt = true } }
-  | _ -> old
+let interpret (u: universe) (words: string): universe =
+  match words with
+  | "halt" | "exit" | "quit" -> {
+    u with time = { u.time with halt = true }
+  }
+  | _ -> u
